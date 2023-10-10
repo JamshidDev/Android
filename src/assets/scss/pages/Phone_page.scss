@@ -1,0 +1,89 @@
+.phone_register_page{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color: $bg-primary;
+    padding: 10px;
+
+    .support-box{
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        
+        span{
+            font-size: 13px;
+            margin: 0px 10px;
+            color:  $text-primary;
+        }
+    }
+
+
+    .number-box{
+        .page-title{
+            margin-top: 100px;
+        }
+    }
+
+    .element-label{
+        font-size: 14px;
+        color: $text-primary;
+        margin-top: 10px;
+        display: block;
+    }
+
+    .phone-number-element{
+        width: 100%;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        height: 50px;
+        border:2px solid $text-primary;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #ffffff;
+        padding: 0px 5px;
+        img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        span{
+            padding: 5px 0px;
+            font-weight: 600;
+            width: 40px;
+            color:  $text-secondary;
+            font-size: 18px;
+        }
+
+        input{
+            height: 100%;
+            width: calc(100% - 70px);
+            font-weight: 600;
+            font-size: 18px;
+            border: none;
+            padding: 0px 2px;
+            caret-color: $text-primary;
+            &::placeholder{
+                font-weight: 600;
+                font-size: 18px;
+                color: #979797;
+            }
+            &:focus{
+                outline: none;
+            }
+        }
+
+    }
+    .error-msg{
+        color: $error-text-color;
+        font-size: 14px;
+    }
+
+    .btn-overal{
+        width: calc(100% - 25px);
+        position: fixed;
+        bottom: 40px;
+
+        
+    }
+}

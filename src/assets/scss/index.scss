@@ -1,5 +1,11 @@
-@import "./_abstracts/variables";
+@import "./variables";
+@import "./pages/elements.scss";
+@import "./pages/layout.scss";
+@import "./pages/newspage.scss";
+@import "./pages/mepages.scss";
+@import "./pages/all_pages.scss";
+@import "./general.scss";
+@import "./pages/Phone_page.scss";
 
-.bg-primary {
-    background-color: $bg-primary;
-}
+
+@import "./overwrite.scss";

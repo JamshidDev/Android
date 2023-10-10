@@ -1,0 +1,91 @@
+.notefication-page-container {
+    width: 100%;
+    padding-top: 50px;
+
+    .notefication-list {
+        width: 100%;
+        overflow: hidden;
+
+        .list-item {
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding: 10px 12px;
+            position: relative;
+            &::after{
+                content: "";
+                bottom: -1px;
+                height: 1px;
+                width: calc(100% - 70px);
+                background-color: #A9ABAD;
+                position: absolute;
+                left: 70px;
+                right: 0px;
+                z-index: 2;
+            }
+
+            .item-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #6236FF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+
+                .message-logo {
+                    font-size: 20px;
+                    color: #ffffff;
+                    font-weight: 500;
+                }
+                
+            }
+            .text-content{
+                width: calc( 100% - 110px);
+                display: flex;
+                flex-direction: column;
+                .title{
+                    color:#27173E;
+                    font-weight: 500;
+                    white-space: nowrap;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis;
+                }
+                .message-short{
+                    font-size: 14px;
+                    color:#958d9e;
+                    white-space: nowrap;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis;
+                }
+                .message-date{
+                    font-size: 12px;
+                    display: flex;
+                    width: 100%;
+                }
+            }
+
+            .arrow-icon {
+                position: relative;
+                i {
+                    color: #A9ABAD;
+                    font-size: 28px;
+                    
+                }
+                .unread-msg{
+                    position: absolute;
+                    top: 8px;
+                    left: -10px;
+                    color: #6236FF;
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+                
+            }
+        }
+
+    }
+}

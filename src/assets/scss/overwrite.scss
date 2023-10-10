@@ -1,0 +1,18 @@
+
+*{
+    box-sizing: border-box !important;
+    user-select: none !important;
+}
+
+body{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
