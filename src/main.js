@@ -6,6 +6,7 @@ import VueLazyLoad from 'vue3-lazyload';
 
 import VueMask from '@devindex/vue-mask'; // <-- ADD THIS LINE
 
+
 import App from './App.vue';
 import JR_NumberInput from './components/JR_NumberInput.vue';
 import JR_Passwor from './components/JR_Password.vue';
@@ -14,6 +15,7 @@ import Loading from './components/Loading.vue';
 import PageHeader from './components/PageHeader.vue';
 import router from './router/index';
 import store from './store/index.js';
+
 
 const app = createApp(App)
 app.use(VueMask);

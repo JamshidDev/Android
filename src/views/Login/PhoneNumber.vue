@@ -16,7 +16,13 @@
                     placeholder="(00) 000 00 00" v-mask="'(##)-###-##-##'" :maxlength="14" />
             </div>
             <span class="error-msg" v-if="invalid_format">{{ error_msg }}</span>
+
+
+
         </div>
+<!--      <span class="element-col">-->
+<!--            <JR_Passwor :label_name="'Parolni kiriting'" :defaul_val="users.password" @valueEvent="($event)=> users.password = $event"></JR_Passwor>-->
+<!--        </span>-->
         <div class="btn-overal">
             <button class="jr-btn jr-btn-primary" id="submit-btn" @click="sumbim_phoneNumber()">
                 Keyingi

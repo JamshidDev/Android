@@ -1,7 +1,7 @@
 <template>
     <div class="jr-password">
         <span class="jr-label">{{ label_name}}</span>
-        <input class="jr-input-password" type="text" v-model="text_val">
+        <input class="jr-input-password" :type="type" v-model="text_val" :placeholder="placeholder" @keyup.enter="eventEnter" :id="id">
     </div>
 </template>
 
@@ -14,8 +14,21 @@ export default {
         },
         label_name:{
             type:String,
-            default:'Labe name',
+            default:'Label name',
         },
+        type:{
+          type:String,
+          default:'text',
+        },
+      placeholder:{
+        type:String,
+        default:'',
+      },
+      id:{
+        type:String,
+        default:'xs',
+      }
+
 
     },
     data(){
@@ -31,6 +44,10 @@ export default {
     methods:{
         change_val(value){
             this.$emit('valueEvent', value)
+        },
+
+        eventEnter(){
+          this.$emit("eventEnter")
         }
     },
     mounted(){
