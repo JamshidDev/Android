@@ -16,7 +16,7 @@
                 :defaul_val="code"
                 @valueEvent="($event)=> code = $event"></JR_TextField>
     </span>
-    <UserInfo v-if="isHaveData" :worker="worker" ></UserInfo>
+    <UserInfo v-if="isHaveData" :worker="worker" :pin="code" ></UserInfo>
   </div>
 </template>
 
@@ -30,13 +30,8 @@ import {
   watch,
 } from 'vue';
 
-import {
-  useRoute,
-  useRouter,
-} from 'vue-router';
 import auth from '../../service/services/auth.js'
 import { useStore } from 'vuex';
-import JR_NumberInput from "../../components/JR_NumberInput.vue";
 const store = useStore()
 const code = ref('')
 const worker = ref(null)

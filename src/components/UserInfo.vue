@@ -21,11 +21,11 @@
       <div style="padding: 6px 12px;" >
         <span style="font-size: 12px; width: 100%; display: inline-block; color: #6236ff">Xodimdagi mavjud kartalar</span>
       </div>
-      <div class="cadry_card red_card" @dblclick="show_dialog()">
+      <div class="cadry_card red_card" @dblclick="show_dialog('red')">
       </div>
-      <div class="cadry_card yellow_card" @dblclick="show_dialog()">
+      <div class="cadry_card yellow_card" @dblclick="show_dialog('yellow')">
       </div>
-      <div class="cadry_card green_card" @dblclick="show_dialog()" style="margin-bottom: 40px">
+      <div class="cadry_card green_card" @dblclick="show_dialog('green')" style="margin-bottom: 40px">
       </div>
       <div style="padding: 6px 12px;" >
         <span style="font-size: 12px; width: 100%; display: inline-block; color: #a9a9a9">Xodimdan kartalarni olish uchun karta ustiga ikki marta bosing!</span>
@@ -36,7 +36,12 @@
       <div class="dialog_content"  :class="content_show && 'content_show'">
         <h3 style="text-align: center; ">Siz haqiqattan ham xodim kartasini olmoqchimisiz?</h3>
         <div style="display: flex; flex-direction: column; gap:20px; margin-top: 40px">
-          <button class="jr-btn jr-btn-primary"  @click="close_dialog()">
+          <textarea
+              class="reason__textarea"
+              placeholder="Talon olish sababi..."
+              v-model="reason"
+          />
+          <button class="jr-btn jr-btn-primary"  @click="saveCard()">
             Xa
           </button> <button class="jr-btn "  @click="close_dialog()">
           Yo'q
@@ -52,27 +57,35 @@
 
 </template>
 <script setup>
+import auth from "../service/services/auth.js";
 import {
-  computed,
   onMounted,
   ref,
-  watch,
 } from 'vue';
-
+import dayjs from "dayjs";
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
+const store = useStore()
+const router = useRouter()
 const show = ref(false);
+const reason = ref('')
+const cardType = ref(null)
 const content_show = ref(false);
 
-defineProps({
+const props = defineProps({
   worker:Object,
+  pin:String,
 })
 
-function show_dialog(){
+function show_dialog(type){
+  cardType.value = type
   show.value = true;
   setTimeout(()=>{
     content_show.value = true;
   },60)
 
 }
+
 function close_dialog(){
 
   content_show.value = false;
@@ -80,6 +93,26 @@ function close_dialog(){
     show.value = false;
   }, 200)
 }
+
+const saveCard = ()=>{
+  store.dispatch('set_modal_status', true)
+  let data = {
+    pin:props.pin,
+    type:cardType.value,
+    from_date:dayjs(new Date()).format('YYYY-MM-DD'),
+    comment:reason.value,
+  }
+  auth._violator({data}).then((res)=>{
+    $Toast.success("Talon olindi...", {position:"top-right"})
+    router.push({name:'scaner'})
+
+  }).finally(()=>{
+    store.dispatch('set_modal_status', false)
+  })
+  console.log(data)
+  close_dialog()
+}
+
 onMounted(()=>{
 })
 </script>
@@ -118,6 +151,14 @@ onMounted(()=>{
     height: 50vh;
     opacity: 1;
   }
+}
+.reason__textarea{
+  width: 100%;
+  height: 100px;
+  border: 1px solid #32325D3F;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 16px;
 }
 
 </style>

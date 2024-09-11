@@ -2,20 +2,25 @@
   <div class="notefication-page-container">
     <PageHeader :page_title="'Oxirgi amallar tarixi'" :back_btn="true" :btn_type="'no'" ></PageHeader>
     <div class="notefication-list">
-      <div class="list-item" @click="$router.push({name:'history'})" v-for="(msg, index) in 15" :key="msg">
-        <div class="item-icon" :class="list_color[index%3]">
+      <div class="list-item"
+           v-for="(card, index) in userTalons" :key="index"
+           @click="showDetails(card)"
+      >
+        <div class="item-icon" :class="`${card.type.key}_card`">
           <i class='bx bx-down-arrow-alt message-logo' style="font-size: 28px"></i>
 
         </div>
         <div class="text-content">
-          <div class="title">Karta olindi!
+          <div class="title">{{card.type.value}} talon
 
           </div>
           <div class="message-short">
-            Ishga kerakli asboblar va formalarsiz kelganligi uchun
+            {{card.comment}}
           </div>
           <div class="message-date">
-            3 Yanvar 2023 12:34
+            {{dayjs(card.from_date).format('D')}}
+            - {{dayjs(card.from_date).format('MMM')}}
+            {{dayjs(card.from_date).format('YYYY')}}
           </div>
         </div>
         <div class="arrow-icon">
@@ -28,18 +33,35 @@
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
+import dayjs from 'dayjs';
+import auth from "../../service/services/auth.js";
+import {useStore} from "vuex";
+import {onMounted, ref} from "vue";
+import {useRouter} from "vue-router";
 
-    data() {
-        return {
+const router = useRouter()
+const store = useStore()
+const userTalons = ref([])
 
-        list_color:['red_card','yellow_card','green_card']
-
-        }
-    },
-    methods: {
-
-    }
+const getUserTalons = ()=>{
+  store.dispatch('set_modal_status', true)
+  auth._getUserTalons().then((res)=>{
+    userTalons.value = res.data.talons.data
+  }).finally(()=>{
+    store.dispatch('set_modal_status', false)
+  })
 }
+
+const showDetails = (v)=>{
+  localStorage.setItem('card', JSON.stringify(v))
+  router.push({name:'history'})
+}
+
+onMounted(()=>{
+  getUserTalons()
+})
+
+
+
 </script>

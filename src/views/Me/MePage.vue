@@ -1,27 +1,19 @@
 <template>
     <div class="me-page-container">
-        <!-- <div class="page_header-app">
-            <i class='bx bx-chevron-left back-btn'></i>
-            <span class="app-title">Shaxsiy ma'lumotlar</span>
-            <span class="notefication-btn">
-                <i class='bx bx-bell'></i>
-                <span class="bell-badge"> 3</span>
-
-            </span>
-        </div> -->
         <PageHeader :page_title="'Shaxsiy ma\'lumotlar'" :back_btn="true" :btn_type="'bill'"
             @billEvent="() => $router.push({ name: 'notefication' })"></PageHeader>
 
         <div class="user-avatar-col">
             <div class="avatar-box">
-                <img src="../../assets/images/avatar/avatar2.jpg" alt="">
+              <img v-if="profile" :src="profile.avatar" alt="">
+              <img  v-else src="../../../public/avatar.jpg" alt="">
             </div>
         </div>
 
         <div class="user-idintification-alert">
-            <i class='bx bx-message-alt-error alert-icons'></i>
-            <span class="alert-msg">Tasdiqlanmagan foydalanuvchi</span>
-            <i class='bx bx-chevron-right arrow-icons'></i>
+            <i class='bx bx-user-circle alert-icons'></i>
+            <span class="alert-msg" style="text-align: center">{{profile?.name}}</span>
+<!--            <i class='bx bx-chevron-right arrow-icons'></i>-->
         </div>
 
 
@@ -55,6 +47,7 @@
 import auth from "../../service/services/auth.js";
 import { useStore } from 'vuex';
 import {useRouter} from "vue-router";
+import {onMounted, ref} from "vue";
 const store = useStore()
 const router = useRouter()
 const menu_list =  [
@@ -101,6 +94,8 @@ const menu_list =  [
   }
 ]
 
+const profile = ref(null)
+
 const handlerEvent = (v)=>{
   if(v==='bx bx-log-out'){
     store.dispatch('set_modal_status', true)
@@ -114,6 +109,19 @@ const handlerEvent = (v)=>{
     })
   }
 }
+
+const getMe = ()=>{
+  store.dispatch('set_modal_status', true)
+  auth._getMe().then((res)=>{
+    profile.value = res.data.user
+  }).finally(()=>{
+    store.dispatch('set_modal_status', false)
+  })
+}
+
+onMounted(()=>{
+  getMe()
+})
 </script>
 
 <style lang="scss" scoped></style>

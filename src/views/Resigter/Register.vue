@@ -4,7 +4,7 @@
 <!--            <i class='bx bx-chevron-left' @click="$router.go(-1)"></i>-->
 <!--        </div>-->
         <div style="width: 100%; display: flex; justify-content: center">
-          <img style="width: 80px" src="public/logo.webp" alt="">
+          <img style="width: 80px" src="../../../public/logo.webp" alt="">
         </div>
         <span class="page-title" style="margin-top:20px; margin-bottom:20px; text-align: center">TIZIMGA KIRISH</span>
         <!-- <i class="fas fa-users"></i> -->
@@ -61,7 +61,7 @@ function submit_data() {
       router.push({name: 'scaner'})
     }).catch((err)=>{
       console.log(err)
-      $Toast.error("Login yoki parol noto'g'ri",{
+      $Toast.error(err.message,{
         position:'top-right'
       })
     }).finally(()=>{
