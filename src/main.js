@@ -7,6 +7,7 @@ import VueLazyLoad from 'vue3-lazyload';
 import VueMask from '@devindex/vue-mask'; // <-- ADD THIS LINE
 import {useToast} from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-bootstrap.css';
+import VueTheMask from 'vue-the-mask'
 
 import App from './App.vue';
 import JR_NumberInput from './components/JR_NumberInput.vue';
@@ -23,6 +24,7 @@ app.use(VueMask);
 app.use(router)
 app.use(store)
 app.use(VueLazyLoad)
+app.use(VueTheMask)
 
 
 

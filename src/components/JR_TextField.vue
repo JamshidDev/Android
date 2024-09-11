@@ -1,7 +1,9 @@
 <template>
     <div class="jr-password">
         <span class="jr-label">{{ label_name}}</span>
-        <input class="jr-input-password" :type="type" v-model="text_val" :placeholder="placeholder" @keyup.enter="eventEnter" :id="id">
+
+      <input v-if="mask" v-mask="mask" class="jr-input-password" :type="type" v-model="text_val" :placeholder="placeholder" @keyup.enter="eventEnter" :id="id">
+      <input v-else class="jr-input-password" :type="type" v-model="text_val" :placeholder="placeholder" @keyup.enter="eventEnter" :id="id">
     </div>
 </template>
 
@@ -27,7 +29,12 @@ export default {
       id:{
         type:String,
         default:'xs',
+      },
+      mask:{
+        type:String,
+        default:null,
       }
+
 
 
     },

@@ -6,7 +6,15 @@
       <i class='bx bx-chevron-left' @click="$router.go(-1)"></i>
     </div>
     <span class="element-col">
-            <JR_TextField :id="`user-code-number`" @eventEnter="searchCode" :placeholder="`Karta kodni kiriting`" type="number" :label_name="'Xodimning karta kodini yozib izlang...'" :defaul_val="code" @valueEvent="($event)=> code = $event"></JR_TextField>
+            <JR_TextField
+                :mask="'##############'"
+                :id="`user-code-number`"
+                @eventEnter="searchCode"
+                :placeholder="`JSHSHIRni kiriting`"
+                type="text"
+                :label_name="'Xodimning jshshir yozib izlang...'"
+                :defaul_val="code"
+                @valueEvent="($event)=> code = $event"></JR_TextField>
     </span>
     <UserInfo v-if="isHaveData" :worker="worker" ></UserInfo>
   </div>
@@ -28,6 +36,7 @@ import {
 } from 'vue-router';
 import auth from '../../service/services/auth.js'
 import { useStore } from 'vuex';
+import JR_NumberInput from "../../components/JR_NumberInput.vue";
 const store = useStore()
 const code = ref('')
 const worker = ref(null)
