@@ -8,7 +8,7 @@
     <span class="element-col">
             <JR_TextField :id="`user-code-number`" @eventEnter="searchCode" :placeholder="`Karta kodni kiriting`" type="number" :label_name="'Xodimning karta kodini yozib izlang...'" :defaul_val="code" @valueEvent="($event)=> code = $event"></JR_TextField>
     </span>
-    <UserInfo v-if="isHaveData"></UserInfo>
+    <UserInfo v-if="isHaveData" :worker="worker" ></UserInfo>
   </div>
 </template>
 
@@ -26,16 +26,35 @@ import {
   useRoute,
   useRouter,
 } from 'vue-router';
+import auth from '../../service/services/auth.js'
 import { useStore } from 'vuex';
 const store = useStore()
+const code = ref('')
+const worker = ref(null)
+const isHaveData = ref(false);
 function searchCode(){
   let element = document.getElementById('user-code-number');
   element.blur();
   store.dispatch('set_modal_status', true)
-  setTimeout(() => {
+  let params = {
+    pin:code.value
+  }
+
+  auth._searchWorker({params}).then((res)=>{
+    if(res.data.worker){
+      worker.value = res.data.worker
+      isHaveData.value = true
+    }else{
+      isHaveData.value = false
+      $Toast.warning("Xodim topilmadi...")
+    }
+
+  }).catch((err)=>{
+    console.log(err)
+  }).finally(()=>{
     store.dispatch('set_modal_status', false)
-    isHaveData.value = true;
-  }, 3000)
+  })
+
 }
 onMounted(()=>{
   setTimeout(()=>{
@@ -45,8 +64,7 @@ onMounted(()=>{
 
 })
 
-const code = ref('')
-const isHaveData = ref(false);
+
 </script>
 
 <style scoped lang="scss">
