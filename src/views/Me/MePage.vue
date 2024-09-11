@@ -28,7 +28,11 @@
         <div class="list-container" v-for="list in menu_list" :key="list.label">
             <span class="list-label">{{ list.label }}</span>
             <ul class="list-view-box">
-                <li class="list-item" v-for="item in list.list" :key="item.title">
+                <li
+                    class="list-item"
+                    v-for="item in list.list" :key="item.title"
+                    @click="handlerEvent(item.icon)"
+                >
                     <div class="item-icon">
                         <i :class="item.icon"></i>
                     </div>
@@ -47,66 +51,68 @@
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            menu_list: [
-                {
-                    label: "Monitoring",
-                    list: [
-                        {
-                            title: "Lavozim ma'lumoti",
-                            icon: "bx bx-purchase-tag-alt",
-                            is_permission: true,
-                        },
-                        {
-                            title: "Tibbiy ko'rik",
-                            icon: "bx bx-plus-medical",
-                            is_permission: true,
-                        },
-                        {
-                            title: "Ta'til ma'lumoti",
-                            icon: "bx bx-file",
-                            is_permission: true,
-                        },
-                        {
-                            title: "Mukofatlar",
-                            icon: "bx bx-award",
-                            is_permission: true,
-                        },
-                        {
-                            title: "Intizomiy jazolar",
-                            icon: "bx bx-award",
-                            is_permission: true,
-                        },
-                    ]
-                },
-                {
-                    label: "Qo'shimcha",
-                    list: [
-                        {
-                            title: "Oylik ma'lumoti",
-                            icon: "bx bx-dollar-circle",
-                            is_permission: true,
-                            
-                        },
-                        {
-                            title: "Mehnat faoliyati",
-                            icon: "bx bxl-slack",
-                            is_permission: true,
-                        },
-                        {
-                            title: "Mening arizalarim",
-                            icon: "bx bx-file",
-                            is_permission: true,
-                        },
-                        
-                    ]
-                }
-            ]
-        }
-    }
+<script setup>
+import auth from "../../service/services/auth.js";
+import { useStore } from 'vuex';
+import {useRouter} from "vue-router";
+const store = useStore()
+const router = useRouter()
+const menu_list =  [
+  {
+    label: "Monitoring",
+    list: [
+      {
+        title: "Lavozim ma'lumoti",
+        icon: "bx bx-purchase-tag-alt",
+        is_permission: true,
+      },
+      {
+        title: "Tibbiy ko'rik",
+        icon: "bx bx-plus-medical",
+        is_permission: true,
+      },
+      {
+        title: "Ta'til ma'lumoti",
+        icon: "bx bx-file",
+        is_permission: true,
+      },
+      {
+        title: "Mukofatlar",
+        icon: "bx bx-award",
+        is_permission: true,
+      },
+      {
+        title: "Intizomiy jazolar",
+        icon: "bx bx-award",
+        is_permission: true,
+      },
+    ]
+  },
+  {
+    label: "Qo'shimcha",
+    list: [
+      {
+        title: "Chiqish",
+        icon: "bx bx-log-out",
+        is_permission: true,
+      },
+
+    ]
+  }
+]
+
+const handlerEvent = (v)=>{
+  if(v==='bx bx-log-out'){
+    store.dispatch('set_modal_status', true)
+    auth._logOut().then(()=>{
+      localStorage.removeItem('access_token')
+      router.push({
+        name: 'register-phone',
+      })
+    }).finally(()=>{
+      store.dispatch('set_modal_status', false)
+    })
+  }
 }
 </script>
 

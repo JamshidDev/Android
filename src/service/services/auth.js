@@ -3,7 +3,7 @@ const _login =async (payload)=>{
     return await axios.post('/api/login', payload.data, {params:payload.params});
 }
 const _logOut =async (payload)=>{
-    return await axios.post('/api/logout', payload.data, {params:payload.params});
+    return await axios.post('/api/logout');
 }
 
 const _searchWorker =async (payload)=>{
