@@ -70,6 +70,17 @@ function submit_data() {
       store.dispatch('set_modal_status', false)
     })
 }
+
+const autoLogin = ()=>{
+  const token = localStorage.getItem('access_token')
+  if(token){
+    router.push({name: 'scaner'})
+  }
+}
+
+onMounted(()=>{
+  autoLogin()
+})
 </script>
 
 <style lang="scss" scoped>
