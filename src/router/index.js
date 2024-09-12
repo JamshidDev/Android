@@ -24,8 +24,7 @@ import HistoryPage from "@/views/History/HistoryPage.vue";
 const beforeLogin = (to, from, next) => {
     const token = localStorage.getItem("access_token")
     if (token && to.name == "register-phone") {
-        next("/layout/scaner");
-        console.log('1')
+        next();
     } else if (token) {
         console.log('2')
         next()
