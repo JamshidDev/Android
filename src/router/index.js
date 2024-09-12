@@ -40,7 +40,6 @@ const routes = [
         name: "layout",
         path: '/layout',
         component: Layout,
-        beforeEnter: beforeLogin,
         meta: {
             title: "Asosiy sahifa",
         },
@@ -101,7 +100,6 @@ const routes = [
         path: '/',
         redirect:'/register-phone',
         component: Home,
-        beforeEnter: beforeLogin,
         meta: {
             title: "Telefon raqam",
         }
@@ -126,7 +124,6 @@ const routes = [
         name: "register-phone",
         path: '/register-phone',
         component: Register,
-        beforeEnter: beforeLogin,
         meta: {
             title: "Telefon raqam",
         }
