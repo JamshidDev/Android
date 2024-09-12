@@ -25,13 +25,13 @@
 </template>
 
 <script setup>
+import { showNotify, closeNotify } from 'vant';
 import {
   computed,
   onMounted,
   ref,
   watch,
 } from 'vue';
-
 import {
   useRoute,
   useRouter,
@@ -46,7 +46,7 @@ const users = ref({
     username:'',
     password:'',
     confirm_password:''
-});
+})
 
 
 function submit_data() {
@@ -60,10 +60,12 @@ function submit_data() {
       localStorage.setItem('access_token',res.data.access_token)
       router.push({name: 'scaner'})
     }).catch((err)=>{
-      console.log(err)
-      $Toast.error(err.message,{
-        position:'top-right'
-      })
+      showNotify({
+        type: 'danger',
+        message: "Parol yoki login noto'g'ri",
+        duration: 1000,
+      });
+
     }).finally(()=>{
       store.dispatch('set_modal_status', false)
     })
@@ -71,5 +73,7 @@ function submit_data() {
 </script>
 
 <style lang="scss" scoped>
-
+.content {
+  padding: 16px 16px 160px;
+}
 </style>

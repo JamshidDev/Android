@@ -3,7 +3,7 @@ import axios from 'axios';
 import router from '../router/index';
 
 const instance = axios.create({
-    baseURL: `http://192.168.136.78`,
+    baseURL: `https://depo.waternet.uz`,
 });
 
 instance.interceptors.request.use(function (config) {
@@ -19,9 +19,9 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(
     response => response,
     error => {
-        // if(error.response.status==401){
-        //     router.push("/login")
-        // }
+        if(error.response.status==401){
+            router.push({name:'register-phone'})
+        }
         return Promise.reject(error)
     }
 );

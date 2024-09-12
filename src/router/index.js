@@ -20,11 +20,28 @@ import ScanerPage from "@/views/Scaner/ScanerPage.vue";
 import SearchResult from "@/views/SearchResult/SearchResult.vue";
 import HistoryPage from "@/views/History/HistoryPage.vue";
 
+
+const beforeLogin = (to, from, next) => {
+    const token = localStorage.getItem("access_token")
+    if (token && to.name == "register-phone") {
+        next("/layout/scaner");
+        console.log('1')
+    } else if (token) {
+        console.log('2')
+        next()
+    } else {
+        localStorage.removeItem("access_token");
+        next();
+        console.log('3')
+    }
+};
+
 const routes = [
     {
         name: "layout",
         path: '/layout',
         component: Layout,
+        beforeEnter: beforeLogin,
         meta: {
             title: "Asosiy sahifa",
         },
@@ -37,7 +54,7 @@ const routes = [
                 title: "Yangiliklar sahifa",
             }
         },
-            {
+        {
                 name: "history",
                 path: '/layout/news/history',
                 component: HistoryPage,
@@ -75,15 +92,17 @@ const routes = [
         name: "search-result",
         path: '/search-result',
         component: SearchResult,
+
         meta: {
             title: "Qidiruv",
         }
     },
     {
         name: "home",
-        redirect: "/register-phone",
         path: '/',
+        redirect:'/register-phone',
         component: Home,
+        beforeEnter: beforeLogin,
         meta: {
             title: "Telefon raqam",
         }
@@ -108,6 +127,7 @@ const routes = [
         name: "register-phone",
         path: '/register-phone',
         component: Register,
+        beforeEnter: beforeLogin,
         meta: {
             title: "Telefon raqam",
         }

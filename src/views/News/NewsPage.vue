@@ -11,11 +11,15 @@
 
         </div>
         <div class="text-content">
-          <div class="title">{{card.type.value}} talon
+          <div class="title">{{card.worker_id.full_name}} talon
 
           </div>
           <div class="message-short">
-            {{card.comment}}
+            <van-text-ellipsis
+                :content="card.comment"
+                expand-text=" ko'proq"
+                collapse-text=" kamroq"
+            />
           </div>
           <div class="message-date">
             {{dayjs(card.from_date).format('D')}}
@@ -24,7 +28,7 @@
           </div>
         </div>
         <div class="arrow-icon">
-          <i class='bx bx-chevron-right arrow-icon'></i>
+          <i class='bx bx-info-circle arrow-icon'></i>
 <!--          <i class='bx bxs-circle unread-msg'></i>-->
         </div>
       </div>
@@ -54,8 +58,8 @@ const getUserTalons = ()=>{
 }
 
 const showDetails = (v)=>{
-  localStorage.setItem('card', JSON.stringify(v))
-  router.push({name:'history'})
+  // localStorage.setItem('card', JSON.stringify(v))
+  // router.push({name:'history'})
 }
 
 onMounted(()=>{

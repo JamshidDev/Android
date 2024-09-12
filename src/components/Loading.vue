@@ -1,23 +1,12 @@
 <template>
-    <span v-show="modal_visible">
-        <div class="loading_modal">
-            <div class="lds-spinner">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
-    </span>
+  <van-overlay :show="modal_visible" style="z-index: 9999; display: flex; justify-content: center; align-items: center;">
+    <div class="loading__overall">
+      <van-loading type="spinner" size="40" />
+    </div>
+
+  </van-overlay>
 </template>
+
 
 <script setup>
 import { computed } from 'vue';
@@ -29,114 +18,9 @@ const modal_visible = computed(()=> store.state.app.loading_modal)
 </script>
 
 <style lang="scss" scoped>
-.loading_modal {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #1a181846;
-    position: fixed;
-    z-index: 900;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-
-
-    .lds-spinner {
-        color: official;
-        display: inline-block;
-        position: relative;
-        width: 60px;
-        height: 60px;
-    }
-
-    .lds-spinner div {
-        transform-origin: 40px 40px;
-        animation: lds-spinner 1.2s linear infinite;
-    }
-
-    .lds-spinner div:after {
-        content: " ";
-        display: block;
-        position: absolute;
-        top: 3px;
-        left: 37px;
-        width: 6px;
-        height: 18px;
-        border-radius: 20%;
-        background: #fff;
-    }
-
-    .lds-spinner div:nth-child(1) {
-        transform: rotate(0deg);
-        animation-delay: -1.1s;
-    }
-
-    .lds-spinner div:nth-child(2) {
-        transform: rotate(30deg);
-        animation-delay: -1s;
-    }
-
-    .lds-spinner div:nth-child(3) {
-        transform: rotate(60deg);
-        animation-delay: -0.9s;
-    }
-
-    .lds-spinner div:nth-child(4) {
-        transform: rotate(90deg);
-        animation-delay: -0.8s;
-    }
-
-    .lds-spinner div:nth-child(5) {
-        transform: rotate(120deg);
-        animation-delay: -0.7s;
-    }
-
-    .lds-spinner div:nth-child(6) {
-        transform: rotate(150deg);
-        animation-delay: -0.6s;
-    }
-
-    .lds-spinner div:nth-child(7) {
-        transform: rotate(180deg);
-        animation-delay: -0.5s;
-    }
-
-    .lds-spinner div:nth-child(8) {
-        transform: rotate(210deg);
-        animation-delay: -0.4s;
-    }
-
-    .lds-spinner div:nth-child(9) {
-        transform: rotate(240deg);
-        animation-delay: -0.3s;
-    }
-
-    .lds-spinner div:nth-child(10) {
-        transform: rotate(270deg);
-        animation-delay: -0.2s;
-    }
-
-    .lds-spinner div:nth-child(11) {
-        transform: rotate(300deg);
-        animation-delay: -0.1s;
-    }
-
-    .lds-spinner div:nth-child(12) {
-        transform: rotate(330deg);
-        animation-delay: 0s;
-    }
-
-    @keyframes lds-spinner {
-        0% {
-            opacity: 1;
-        }
-
-        100% {
-            opacity: 0;
-        }
-    }
-
-}</style>
+.loading__overall{
+  padding: 20px;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+</style>

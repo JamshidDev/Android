@@ -1,6 +1,6 @@
 <template>
     <div class="me-page-container">
-        <PageHeader :page_title="'Shaxsiy ma\'lumotlar'" :back_btn="true" :btn_type="'bill'"
+        <PageHeader :page_title="'Shaxsiy ma\'lumotlar'" :back_btn="true"
             @billEvent="() => $router.push({ name: 'notefication' })"></PageHeader>
 
         <div class="user-avatar-col">

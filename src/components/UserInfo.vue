@@ -19,7 +19,7 @@
         <span style="font-size: 15px; width: 100%; display: flex">{{worker.position}}</span>
       </div>
       <div style="padding: 6px 12px;" >
-        <span style="font-size: 12px; width: 100%; display: inline-block; color: #6236ff">Xodimdagi mavjud kartalar</span>
+        <span style="font-size: 12px; width: 100%; display: inline-block; color: #6236ff">Xodimdning talonlari</span>
       </div>
       <div class="cadry_card red_card" @dblclick="show_dialog('red')">
       </div>
@@ -28,13 +28,12 @@
       <div class="cadry_card green_card" @dblclick="show_dialog('green')" style="margin-bottom: 40px">
       </div>
       <div style="padding: 6px 12px;" >
-        <span style="font-size: 12px; width: 100%; display: inline-block; color: #a9a9a9">Xodimdan kartalarni olish uchun karta ustiga ikki marta bosing!</span>
+        <span style="font-size:12px; text-align: center; width: 100%; display: inline-block; color: #a9a9a9">Xodimdan talonini olish uchun talon ustiga ikki marta bosing!</span>
       </div>
     </div>
-    <div class="bottom_dialog" v-show="show" @click.self="close_dialog()">
-
-      <div class="dialog_content"  :class="content_show && 'content_show'">
-        <h3 style="text-align: center; ">Siz haqiqattan ham xodim kartasini olmoqchimisiz?</h3>
+    <van-action-sheet v-model:show="content_show" title="Tanol olish">
+      <div style="padding:6px 20px">
+        <h3 style="text-align:center; ">Siz haqiqattan ham xodim kartasini olmoqchimisiz?</h3>
         <div style="display: flex; flex-direction: column; gap:20px; margin-top: 40px">
           <textarea
               class="reason__textarea"
@@ -43,15 +42,13 @@
           />
           <button class="jr-btn jr-btn-primary"  @click="saveCard()">
             Xa
-          </button> <button class="jr-btn "  @click="close_dialog()">
+          </button> <button class="jr-btn "  style="margin-bottom: 20px" @click="close_dialog()">
           Yo'q
         </button>
 
         </div>
-
       </div>
-
-    </div>
+    </van-action-sheet>
   </template>
 
 
@@ -65,6 +62,7 @@ import {
 import dayjs from "dayjs";
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
+import {showNotify} from "vant";
 const store = useStore()
 const router = useRouter()
 const show = ref(false);
@@ -79,31 +77,27 @@ const props = defineProps({
 
 function show_dialog(type){
   cardType.value = type
-  show.value = true;
-  setTimeout(()=>{
-    content_show.value = true;
-  },60)
-
+  content_show.value = true;
 }
-
-function close_dialog(){
-
+const close_dialog = ()=>{
   content_show.value = false;
-  setTimeout(()=>{
-    show.value = false;
-  }, 200)
 }
+
 
 const saveCard = ()=>{
   store.dispatch('set_modal_status', true)
   let data = {
-    pin:props.pin,
+    pin:props.pin.split('-').join(''),
     type:cardType.value,
     from_date:dayjs(new Date()).format('YYYY-MM-DD'),
     comment:reason.value,
   }
   auth._violator({data}).then((res)=>{
-    $Toast.success("Talon olindi...", {position:"top-right"})
+    showNotify({
+      type: 'success',
+      message: "Muvofaqiyatli bajarildi!",
+      duration: 1000,
+    });
     router.push({name:'scaner'})
 
   }).finally(()=>{

@@ -11,7 +11,7 @@
  <Icon color="red" :icon="rssIcon" /> -->
  
  <router-view></router-view>
- <Loading></Loading>
+ <LoadingV></LoadingV>
 </template>
 
 <script setup>
@@ -38,7 +38,7 @@ const count = computed(()=> store.state.app.count)
 
 
 onMounted(()=>{
-  StatusBar.setBackgroundColor({ color: '#f6f6f7' });
+  StatusBar.setBackgroundColor({ color: '#FFFFFF' });
   // StatusBar.StatusBarInfo({ color: '#f6f6f7' });
   StatusBar.setStyle({ style: Style.Light });
 })
